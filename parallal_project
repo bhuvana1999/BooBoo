@@ -1,0 +1,258 @@
+package parallalProject;
+
+import java.util.HashMap;
+import java.util.Scanner;
+
+class Account
+{
+	private String name;
+	private String DOB;
+	private String password;
+	private long balance;
+	private long phno;
+	private String trans[]=new String[10];
+	public Account(String name, String dOB, String password, long balance, long phno) {
+		super();
+		this.name = name;
+		DOB = dOB;
+		this.password = password;
+		this.balance = balance;
+		this.phno = phno;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getDOB() {
+		return DOB;
+	}
+	public void setDOB(String dOB) {
+		DOB = dOB;
+	}
+	public boolean getPassword(String password) {
+		if(this.password.equals(password))
+			return true;
+		else
+		return false;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public long getBalance() {
+		return balance;
+	}
+	public void setBalance(long balance) {
+		this.balance = balance;
+	}
+	public long getPhno() {
+		return phno;
+	}
+	public void setPhno(long phno) {
+		this.phno = phno;
+	}
+	@Override
+	public String toString() {
+		return "Account [name=" + name + ", DOB=" + DOB + ", password=" + password + ", balance=" + balance + ", phno="
+				+ phno + "]";
+	}
+	public String[] getTrans() {
+		return trans;
+	}
+	public void setTrans(String trans) {
+		int i=0;
+		this.trans[i] = trans;
+		i++;
+	}
+	
+}
+
+
+public class TaskPrint {
+	 public static void main(String[] args) {
+		 
+		   HashMap<Number, Account> hm= new HashMap();
+		   Account ac1=new Account("bhuvana","17/01/1999","xyz",1000,887095);
+		   Account ac2=new Account("durga","21/11/1996","abc",5000,887096);
+		   Account ac3=new Account("venda","24/04/2001","zyx",1050,887097);
+		   Account ac4=new Account("siva","27/07/2004","cba",10000,887098);
+		   
+		   hm.put(1234, ac1);
+		   hm.put(1235, ac2);
+		   hm.put(1236, ac3);
+		   hm.put(1237, ac4);
+		   
+		  System.out.println("1.Create account");
+		  System.out.println("2.Show balance");
+		  System.out.println("3.Deposit");
+		  System.out.println("4.With draw");
+		  System.out.println("5.Fund transfer");
+		  System.out.println("6.Print Transaction");
+		  
+		  Scanner sc=new Scanner(System.in);
+		  System.out.println("enter your choice");
+		  int choice=sc.nextInt();
+		  
+		  switch(choice)
+		  {
+		  case 1:
+			  System.out.println("enter your name");
+			  String name=sc.next();
+			  System.out.println("enter your Ph.no");
+			  long mobno=sc.nextLong();
+			  System.out.println("enter your DOB");
+			  String date=sc.next();
+			  System.out.println("Enter your password");
+			  String password=sc.next();
+			  Account a1=new Account(name,date,password,00,mobno);
+			  a1.setName(name);
+			  a1.setPhno(mobno);
+			  a1.setDOB(date);
+			  a1.setPassword(password);
+			  long accno =mobno+1234;
+			  hm.put(accno,a1);
+			  System.out.println("Welcome "+name+" your account is created sucessfully");
+			  System.out.println("your account no is "+accno);
+			  System.out.println("Thankyou...!!!");
+			  break;
+			
+		  case 2:
+			  
+			  System.out.println("enter your accno");
+			  int accno2 =sc.nextInt();
+			  if(hm.containsKey(accno2))
+			  {
+				  Account a2=(Account) hm.get(accno2);
+				  
+				  System.out.println("Dear "+a2.getName());
+				  System.out.println("your balance is "+a2.getBalance());
+			  }
+			  else
+			   {
+				   System.out.println("account number does not exist");
+			   }
+			   break;
+			   
+		  case 3:
+			  System.out.println("enter account number");
+			 int accno3 =sc.nextInt();
+			  Account a3=(Account) hm.get(accno3);
+			  if(hm.containsKey(accno3))
+			  {
+				  System.out.println("enter the amount to deposit");
+				   int amt=sc.nextInt();
+				   long sum=a3.getBalance()+amt;
+				   a3.setBalance(sum);
+				  
+				   hm.put(accno3,a3);
+				   System.out.println("sucessful");
+				   System.out.println("Dear "+a3.getName());
+				   System.out.println("available balance is: "+a3.getBalance());
+			  }
+				   else
+				   {
+					   System.out.println("account number does not exist");
+				   }
+				    break;	  
+		  case 4:
+			  System.out.println("enter account number");
+			 int accno4 =sc.nextInt();
+			  if(hm.containsKey(accno4))
+			  {
+					  System.out.println("enter password");
+					  password=sc.next();
+					  Account a4=(Account) hm.get(accno4);
+					  if(a4.getPassword(password))
+					  {
+					
+						  System.out.println("enter the amount to with draw");
+						  int amt=sc.nextInt();
+						   long sum=a4.getBalance()-amt;
+						   a4.setBalance(sum);
+						 
+						   System.out.println("sucessful");
+						   System.out.println("Dear "+a4.getName());
+						   System.out.println("available balance is: "+a4.getBalance());
+					  }
+					  else
+					  {
+						  System.out.println("wrong password");
+					  }
+					  break;
+			  }
+			  else
+			  {
+				  System.out.println("enter valid account number ");
+			  }
+			    break;
+		  case 5:
+			  
+			  System.out.println("enter account number");
+			 int accno5 =sc.nextInt();
+			  Account a5=(Account) hm.get(accno5);
+			  if(hm.containsKey(accno5))
+			  {
+				  System.out.println("enter password");
+					  password=sc.next();
+					 if(a5.getPassword(password))
+					  {
+						 System.out.println("enter the account number in which you want to transfer");
+						 int accno6=sc.nextInt();
+						 if(hm.containsKey(accno6))
+						  {
+							 System.out.println("enter the amount you want transfer");
+							 int amt=sc.nextInt();
+							 System.out.println("sucessfull rupees "+amt+" was transfered from your account");
+							 long sum=a5.getBalance()-amt;
+							 a5.setBalance(sum);
+							  
+							   System.out.println("your account balance is"+a5.getBalance());
+							   a5.setTrans("amount deposited to account "+accno6+" of amount "+amt);
+						  }
+						  else
+						  {
+							  System.out.println("enter valid account number ");
+						  }
+						    break;
+					  }
+					  else
+					  {
+						  System.out.println("enter valid password");
+					  }
+					    break;
+			  }
+			  else
+			  {
+				  System.out.println("enter valid account number ");
+			  }
+			    break;
+		  case 6:
+			  System.out.println("enter account number");
+			 int accno7 =sc.nextInt();
+			  if(hm.containsKey(accno7))
+			  {
+				  System.out.println("enter password");
+					  password=sc.next();
+					 Account a6=(Account) hm.get(accno7);
+					 if(a6.getPassword(password))
+					  {
+					    System.out.println("your transactions are"+a6.getTrans());
+					  }
+					 else
+					  {
+						  System.out.println("enter valid password");
+						  break;
+					  }
+			  }
+			  else
+			  {
+				  System.out.println("enter valid account number ");
+			  }
+			    break;
+		   default :
+			   System.out.println("enter proper choice");
+		   
+		  }	   
+}
+}
